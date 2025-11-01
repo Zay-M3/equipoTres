@@ -32,7 +32,8 @@ class LoginFragment : Fragment() {
         sessionManager = SessionManager(requireContext())
         
         // Configurar el botón para mostrar huella
-        binding.btnAuthenticate.setOnClickListener {
+        binding.lottieAnimationView.setOnClickListener {
+            binding.lottieAnimationView.pauseAnimation()
             mostrarAutenticacionBiometrica()
         }
     }
@@ -51,6 +52,7 @@ class LoginFragment : Fragment() {
                     binding.tvStatus.visibility = View.VISIBLE
 
                     findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
+                    binding.lottieAnimationView.resumeAnimation()
                 }
 
                 override fun onAuthenticationFailed() {
