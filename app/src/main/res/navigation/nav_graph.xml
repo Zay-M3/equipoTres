@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.equipotres.ui.login.LoginFragment"
+        android:name="com.example.equipotres.ui.fragment.login.LoginFragment"
         android:label="LoginFragment" >
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
@@ -15,7 +15,50 @@
     </fragment>
     <fragment
         android:id="@+id/home2"
-        android:name="com.example.equipotres.ui.home.Home"
-        android:label="Home" />
+        android:name="com.example.equipotres.ui.fragment.home.Home"
+        android:label="Home" >
+        <action
+            android:id="@+id/action_home2_to_addItemFragment"
+            app:destination="@id/addItemFragment" />
+        <action
+            android:id="@+id/action_home2_to_itemDetailsFragment"
+            app:destination="@id/itemDetailsFragment" />
+        <action
+            android:id="@+id/action_home2_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addItemFragment"
+        android:name="com.example.equipotres.ui.fragment.AddItemFragment"
+        android:label="fragment_add_item"
+        tools:layout="@layout/fragment_add_item" >
+        <action
+            android:id="@+id/action_addItemFragment_to_home2"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemDetailsFragment"
+        android:name="com.example.equipotres.ui.fragment.ItemDetailsFragment"
+        android:label="fragment_item_details"
+        tools:layout="@layout/fragment_item_details" >
+        <action
+            android:id="@+id/action_itemDetailsFragment_to_itemEditFragment"
+            app:destination="@id/itemEditFragment" />
+        <action
+            android:id="@+id/action_itemDetailsFragment_to_home22"
+            app:destination="@id/home2" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemEditFragment"
+        android:name="com.example.equipotres.ui.fragment.ItemEditFragment"
+        android:label="fragment_item_edit"
+        tools:layout="@layout/fragment_item_edit" >
+        <action
+            android:id="@+id/action_itemEditFragment_to_itemDetailsFragment"
+            app:destination="@id/itemDetailsFragment" />
+        <action
+            android:id="@+id/action_itemEditFragment_to_home22"
+            app:destination="@id/home2" />
+    </fragment>
 
 </navigation>
