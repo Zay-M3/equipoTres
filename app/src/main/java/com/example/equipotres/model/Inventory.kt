@@ -10,4 +10,4 @@ data class Inventory(
     val id: Int = 0,
     val name: String,
     val price: Int,
-    val quantity: Int): Serializable
+    val quantity: Int): Serializable;
