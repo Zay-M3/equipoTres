@@ -33,6 +33,12 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
+        <include
+            android:id="@+id/contentToolbar"
+            layout="@layout/toolbar"
+            />
+n
+
         <ProgressBar
             android:id="@+id/progress"
             style="?android:attr/progressBarStyleLarge"
