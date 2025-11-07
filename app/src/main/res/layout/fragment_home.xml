@@ -9,17 +9,16 @@
         android:background="@color/black_translucent"
         tools:context=".ui.fragment.home.Home">
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
+        <include
+            android:id="@+id/toolbarHome"
+            layout="@layout/toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="#424242"
-            app:title="Inventario"
-            app:titleTextColor="@android:color/white"
-            app:menu="@menu/menu_logout"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            />
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"
@@ -28,16 +27,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="80dp"
             tools:listitem="@layout/item_inventoy"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbarHome"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
-        <include
-            android:id="@+id/contentToolbar"
-            layout="@layout/toolbar"
-            />
-n
 
         <ProgressBar
             android:id="@+id/progress"
@@ -57,8 +51,8 @@ n
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="Agregar producto"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="26dp"
+            android:layout_marginBottom="26dp"
             android:src="@drawable/ic_add"
             android:backgroundTint="@color/orange"
             app:tint="@android:color/white"

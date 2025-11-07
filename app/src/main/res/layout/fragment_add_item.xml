@@ -11,7 +11,7 @@
         android:background="@color/bg_color">
 
         <include
-            android:id="@+id/contentToolbar"
+            android:id="@+id/toolbarAdd"
             layout="@layout/toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:background="@color/background_input"
             android:padding="16dp"
             android:inputType="text"
-            app:layout_constraintTop_toBottomOf="@id/contentToolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbarAdd"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

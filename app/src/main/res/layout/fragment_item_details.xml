@@ -12,7 +12,7 @@
         android:background="@color/bg_color">
 
         <include
-            android:id="@+id/contentToolbar"
+            android:id="@+id/toolbarDetail"
             layout="@layout/toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -33,7 +33,7 @@
             android:backgroundTint="#E86C5D"
             android:padding="16dp"
             android:textSize="16sp"
-            app:layout_constraintTop_toBottomOf="@id/contentToolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbarDetail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 

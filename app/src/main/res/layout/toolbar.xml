@@ -14,13 +14,11 @@
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
+                    android:paddingTop="25dp"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@color/toolbar"
-                    app:title="My app"
                     app:titleTextColor="@android:color/white"
-                    app:navigationIcon="@drawable/inventory"
-                    app:menu="@menu/details_menu"
                     >
 
                 </androidx.appcompat.widget.Toolbar>

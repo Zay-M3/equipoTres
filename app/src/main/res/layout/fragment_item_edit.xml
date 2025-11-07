@@ -10,7 +10,7 @@
         tools:context=".ui.fragment.ItemEditFragment">
 
         <include
-            android:id="@+id/contentToolbar"
+            android:id="@+id/toolbarEdit"
             layout="@layout/toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
             android:textColor="@color/text_gray"
             android:textSize="25sp"
             android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/contentToolbar"
+            app:layout_constraintTop_toBottomOf="@id/toolbarEdit"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
