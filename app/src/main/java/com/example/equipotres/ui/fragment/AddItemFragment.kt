@@ -15,12 +15,12 @@ import com.example.equipotres.viewmodel.InventoryViewModel
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import android.util.Log
+import kotlin.toString
 
 class AddItemFragment : Fragment() {
 
     private lateinit var _binding:  FragmentAddItemBinding
     private val binding get() = _binding
-
     private val inventoryViewModel : InventoryViewModel by viewModels()
 
     override fun onCreateView(
@@ -37,7 +37,6 @@ class AddItemFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         // Configurar toolbar del fragment
         setupToolbar()
-
         watchInputs()
 
         binding.btnSave.setOnClickListener {
@@ -119,9 +118,9 @@ class AddItemFragment : Fragment() {
         Log.d("test",inventory.toString())
         Toast.makeText(context,"Artículo guardado !!", Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()
-
-
     }
+
+
 
 
 
