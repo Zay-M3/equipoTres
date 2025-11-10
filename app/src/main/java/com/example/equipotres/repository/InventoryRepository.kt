@@ -3,6 +3,7 @@ import android.content.Context
 import com.example.equipotres.data.InventoryDB
 import com.example.equipotres.data.InventoryDao
 import com.example.equipotres.model.Inventory
+import com.example.equipotres.model.Product
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

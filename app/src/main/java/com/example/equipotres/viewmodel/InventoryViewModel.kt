@@ -9,8 +9,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.equipotres.repository.InventoryRepository
 import kotlinx.coroutines.launch
 
-
-
 class InventoryViewModel (application : Application) : AndroidViewModel(application){
     val context = getApplication<Application>()
 
@@ -57,6 +55,20 @@ class InventoryViewModel (application : Application) : AndroidViewModel(applicat
         }
     }
 
+    //Elimina un registro específico del inventario en la base de datos.
+    fun deleteInventory(inventory: Inventory) {
+        viewModelScope.launch {
+            _progreesState.value = true
+            try {
+                inventoryRepository.deleteInventory(inventory)
+                _progreesState.value = false
+            } catch (e: Exception) {
+                _progreesState.value = false
+            }
+
+        }
+    }
+
     //Actualiza los datos de un inventario existente.
     fun updateInventory(inventory: Inventory) {
         viewModelScope.launch {
@@ -67,7 +79,7 @@ class InventoryViewModel (application : Application) : AndroidViewModel(applicat
             } catch (e: Exception) {
                 _progreesState.value = false
             }
-        }
+        }   
     }
 
     //Calcula el total
@@ -75,7 +87,4 @@ class InventoryViewModel (application : Application) : AndroidViewModel(applicat
         val total = price * quantity
         return total.toDouble()
     }
-
-
-
 }
