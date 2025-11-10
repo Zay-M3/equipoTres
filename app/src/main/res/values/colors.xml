@@ -11,5 +11,6 @@
     <color name="black_translucent">#CC000000</color>
     <color name="orange">#FF9800</color>
     <color name="toolbar">#282828</color>
+    <color name="toolbarBackground">#424242</color>
     <color name="background_input">#CC000000</color>
 </resources>

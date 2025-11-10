@@ -34,7 +34,7 @@ class ItemDetailsFragment : Fragment() {
     }
 
     private fun setupToolbar(){
-        binding.toolbarDetail.toolbar.apply {
+        binding.toolbarDetail.apply {
             setNavigationIcon(R.drawable.arrow_letf)
             setNavigationOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
@@ -54,10 +54,4 @@ class ItemDetailsFragment : Fragment() {
             }
         }
     }
-
-
-
-
-
-
 }
