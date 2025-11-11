@@ -71,8 +71,7 @@ class Home : Fragment(R.layout.fragment_home) {
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.action_logout -> {
-                        // Lógica de logout
-                        Toast.makeText(requireContext(), "Logout", Toast.LENGTH_SHORT).show()
+                        findNavController().navigate(R.id.action_home2_to_loginFragment)
                         true
                     }
 
