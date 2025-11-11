@@ -72,6 +72,7 @@ class Home : Fragment(R.layout.fragment_home) {
                 when (menuItem.itemId) {
                     R.id.action_logout -> {
                         findNavController().navigate(R.id.action_home2_to_loginFragment)
+
                         true
                     }
 
