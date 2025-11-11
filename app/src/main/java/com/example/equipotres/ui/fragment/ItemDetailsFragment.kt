@@ -113,7 +113,7 @@ class ItemDetailsFragment : Fragment() {
                 receivedInventory.price,
                 receivedInventory.quantity
             )
-        }
+        }"
     }
 
 }
