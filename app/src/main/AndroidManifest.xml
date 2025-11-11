@@ -11,6 +11,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EquipoTres">
+        <receiver
+            android:name=".widget.WidGetApp"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/wid_get_app_info" />
+        </receiver>
+
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

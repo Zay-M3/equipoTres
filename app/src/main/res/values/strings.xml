@@ -13,4 +13,9 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back">Ir atras</string>
+    <string name="appwidget_text">Este es mi widget</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="title_widget">¿Cuanto tengo de inventario?</string>
+
 </resources>
