@@ -1,9 +1,9 @@
 package com.example.equipotres.ui.fragment.home
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.equipotres.R
 import com.example.equipotres.databinding.FragmentHomeBinding
+import com.example.equipotres.utils.SessionManager
 import com.example.equipotres.viewmodel.InventoryViewModel
 import com.example.equipotres.ui.adapter.InventoryAdapter
 
@@ -20,6 +21,7 @@ class Home : Fragment(R.layout.fragment_home) {
     private lateinit var _binding: FragmentHomeBinding
     private val binding get() = _binding
     private val inventoryViewModel: InventoryViewModel by viewModels()
+    private lateinit var sessionManager: SessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,7 @@ class Home : Fragment(R.layout.fragment_home) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sessionManager = SessionManager(requireContext())
         // Configurar toolbar del fragment
         setupToolbar()
         //Enviar al fragmento de AddItemFragment cuando pulsa el boton de añadir
@@ -48,6 +51,7 @@ class Home : Fragment(R.layout.fragment_home) {
     }
 
     //Muestra los ítems en el RecyclerView.
+    @SuppressLint("NotifyDataSetChanged")
     private fun observerListInventory(){
         inventoryViewModel.getListInventory()
         inventoryViewModel.listInventory.observe(viewLifecycleOwner){ listInventory ->
@@ -71,9 +75,10 @@ class Home : Fragment(R.layout.fragment_home) {
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.action_logout -> {
-                        // Lógica de logout
-                        Toast.makeText(requireContext(), "Logout", Toast.LENGTH_SHORT).show()
+                        sessionManager.logout()
+                        findNavController().navigate(R.id.action_home2_to_loginFragment)
                         true
+                    
                     }
 
                     else -> false

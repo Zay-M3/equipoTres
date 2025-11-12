@@ -105,10 +105,10 @@ class ItemDetailsFragment : Fragment() {
     private fun dataInventory() {
         val receivedBundle = arguments
         receivedInventory = receivedBundle?.getSerializable("clave") as Inventory
-        binding.tvName.text = "${receivedInventory.name}"
+        binding.tvName.text = receivedInventory.name
         binding.tvPrecio.text = "$ ${receivedInventory.price}"
         binding.tvCantidad.text = "${receivedInventory.quantity}"
-        binding.tvTotal.text = "$ ${
+        binding.tvTotal.text = "${
             inventoryViewModel.totalProducto(
                 receivedInventory.price,
                 receivedInventory.quantity
