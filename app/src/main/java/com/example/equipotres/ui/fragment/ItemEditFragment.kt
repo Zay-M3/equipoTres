@@ -46,7 +46,7 @@ class ItemEditFragment : Fragment() {
             setNavigationOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
-            title = "Detalle del producto"
+            title = "Editar producto"
             inflateMenu(R.menu.custom_menu)
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {

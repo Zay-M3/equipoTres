@@ -10,9 +10,8 @@ import androidx.navigation.fragment.findNavController
 import com.example.equipotres.R
 import com.example.equipotres.databinding.FragmentItemDetailsBinding
 import com.example.equipotres.model.Inventory
-import androidx.navigation.fragment.findNavController
 import com.example.equipotres.viewmodel.InventoryViewModel
-import androidx.fragment.app.viewModels
+
 
 
 class ItemDetailsFragment : Fragment() {
@@ -35,6 +34,9 @@ class ItemDetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+
         // ✅ Recibir el objeto Inventory enviado desde el ViewHolder
         val args = arguments
         receivedInventory = args?.getSerializable("clave") as? Inventory
@@ -43,6 +45,7 @@ class ItemDetailsFragment : Fragment() {
                 findNavController().popBackStack()
                 return
             }
+
         setupToolbar()
         dataInventory()
         controladores()
@@ -50,7 +53,7 @@ class ItemDetailsFragment : Fragment() {
 
 
     private fun setupToolbar(){
-        binding.toolbarDetail.apply {
+        binding.toolbarDetail.toolbar.apply {
             setNavigationIcon(R.drawable.arrow_letf)
             setNavigationOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
@@ -70,6 +73,7 @@ class ItemDetailsFragment : Fragment() {
             }
         }
     }
+
 
 
     private fun deleteInventory() {
