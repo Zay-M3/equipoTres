@@ -4,6 +4,7 @@ plugins {
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
     id ("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -114,6 +115,12 @@ dependencies {
     testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.0")
     testImplementation("androidx.arch.core:core-testing:2.2.0")
     debugImplementation("org.jacoco:org.jacoco.core:0.8.7")
+
+    // Firebase
+    implementation(platform("com.google.firebase:firebase-bom:34.5.0"))
+    implementation("com.google.firebase:firebase-auth")
+    implementation("com.google.firebase:firebase-firestore")
+    
 }
 
 
