@@ -34,8 +34,6 @@ class MainActivity : AppCompatActivity() {
 
         if (sessionManager.isLoggedIn()) {
             navController.navigate(R.id.home2)
-        } else {
-            navController.navigate(R.id.loginFragment)
         }
     }
 }

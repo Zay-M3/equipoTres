@@ -52,6 +52,7 @@ kapt {
 
 dependencies {
 
+    implementation(libs.androidx.activity)
     val navVersion = "2.7.4"
 
     implementation("androidx.core:core-ktx:1.9.0")
@@ -59,7 +60,7 @@ dependencies {
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
-    // 🔐 Biometric (para huella dactilar)
+    // Biometric (para huella dactilar)
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
 
     // Navigation
@@ -101,7 +102,7 @@ dependencies {
     // Glide
     implementation("com.github.bumptech.glide:glide:4.12.0")
 
-    // ☑️ Dagger Hilt
+    //  Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.52")
     kapt("com.google.dagger:hilt-compiler:2.52")
 

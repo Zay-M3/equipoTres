@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.equipotres.R
@@ -77,7 +78,6 @@ class Home : Fragment(R.layout.fragment_home) {
                 when (menuItem.itemId) {
                     R.id.action_logout -> {
                         sessionManager.logout()
-                        findNavController().navigate(R.id.action_home2_to_loginFragment)
                         true
                     
                     }

@@ -53,7 +53,6 @@ class LoginFragment : Fragment() {
                     binding.tvStatus.text = getString(R.string.biometric_success)
                     binding.tvStatus.visibility = View.VISIBLE
 
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     binding.lottieAnimationView.resumeAnimation()
                 }
 

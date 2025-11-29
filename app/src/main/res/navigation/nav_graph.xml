@@ -3,16 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/home2">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.example.equipotres.ui.fragment.login.LoginFragment"
-        android:label="LoginFragment" >
-        <action
-            android:id="@+id/action_loginFragment_to_homeFragment"
-            app:destination="@id/home2" />
-    </fragment>
     <fragment
         android:id="@+id/home2"
         android:name="com.example.equipotres.ui.fragment.home.Home"
@@ -24,8 +16,8 @@
             android:id="@+id/action_home2_to_itemDetailsFragment"
             app:destination="@id/itemDetailsFragment" />
         <action
-            android:id="@+id/action_home2_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_home2_to_loginActivity2"
+            app:destination="@id/loginActivity2" />
     </fragment>
     <fragment
         android:id="@+id/addItemFragment"
@@ -60,5 +52,9 @@
             android:id="@+id/action_itemEditFragment_to_home22"
             app:destination="@id/home2" />
     </fragment>
+    <activity
+        android:id="@+id/loginActivity2"
+        android:name="com.example.equipotres.ui.LoginActivity"
+        android:label="LoginActivity" />
 
 </navigation>
