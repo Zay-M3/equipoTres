@@ -1,5 +1,7 @@
 package com.example.equipotres.ui.fragment.home
+
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.equipotres.R
 import com.example.equipotres.databinding.FragmentHomeBinding
+import com.example.equipotres.ui.LoginActivity
 import com.example.equipotres.utils.SessionManager
 import com.example.equipotres.viewmodel.InventoryViewModel
 import com.example.equipotres.ui.adapter.InventoryAdapter
@@ -78,8 +81,10 @@ class Home : Fragment(R.layout.fragment_home) {
                 when (menuItem.itemId) {
                     R.id.action_logout -> {
                         sessionManager.logout()
+                        val intent = Intent(requireContext(), LoginActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                        startActivity(intent)
                         true
-                    
                     }
 
                     else -> false
