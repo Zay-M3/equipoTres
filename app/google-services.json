@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "276031699248",
+    "project_id": "gruposiete-de7b6",
+    "storage_bucket": "gruposiete-de7b6.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276031699248:android:19891c296675304e4570f5",
+        "android_client_info": {
+          "package_name": "com.example.equipotres"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCN6JjMacpuVXzHx3OeJUCXZoal0WjDMhQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
