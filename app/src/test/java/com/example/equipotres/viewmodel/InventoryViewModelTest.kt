@@ -57,4 +57,53 @@ class InventoryViewModelTest {
         // THEN → Verificamos que el repositorio fue invocado correctamente
         verify(inventoryRepository).saveInventory(inventory)
     }
+
+    @Test
+    fun `test método getListInventory`() = runBlocking {
+        // GIVEN → Datos que queremos que devuelva el mock
+        val mockListInventory = mutableListOf(
+            Inventory(id = 1, name = "Zapatos", price = 20, quantity = 3),
+            Inventory(id = 2, name = "Camisa", price = 15, quantity = 2)
+        )
+
+        // WHEN → Mockeamos la respuesta del repositorio
+        org.mockito.Mockito.`when`(inventoryRepository.getListInventory()).thenReturn(mockListInventory)
+
+        // LLamamos al metodo del ViewModel
+        inventoryViewModel.getListInventory()
+
+        // THEN → Validamos que la LiveData se haya actualizado correctamente
+        assertEquals(mockListInventory, inventoryViewModel.listInventory.value)
+    }
+
+    @Test
+    fun `test método deleteInventory`() = runBlocking {
+        // GIVEN
+        Dispatchers.setMain(UnconfinedTestDispatcher())
+        val inventory = Inventory(id = 1, name = "Item1", price = 10, quantity = 5)
+
+        // WHEN
+        inventoryViewModel.deleteInventory(inventory)
+
+        // THEN → Verificar que se llamó al repositorio
+        verify(inventoryRepository).deleteInventory(inventory)
+    }
+
+    @Test
+    fun `test método updateInventory`() = runBlocking {
+        // GIVEN
+        Dispatchers.setMain(UnconfinedTestDispatcher())
+        val inventory = Inventory(id = 1, name = "Item1", price = 12, quantity = 4)
+
+        // WHEN
+        inventoryViewModel.updateInventory(inventory)
+
+        // THEN → Verificar que se llamó al repositorio
+        verify(inventoryRepository).updateRepositoy(inventory)
+    }
+
+
+
+
+
 }
