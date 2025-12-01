@@ -17,12 +17,13 @@ import androidx.navigation.fragment.findNavController
 import android.util.Log
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.toString
+
 @AndroidEntryPoint
 class AddItemFragment : Fragment() {
 
-    private lateinit var _binding:  FragmentAddItemBinding
+    private lateinit var _binding: FragmentAddItemBinding
     private val binding get() = _binding
-    private val inventoryViewModel : InventoryViewModel by viewModels()
+    private val inventoryViewModel: InventoryViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,10 +34,8 @@ class AddItemFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Configurar toolbar del fragment
         setupToolbar()
         watchInputs()
 
@@ -45,8 +44,7 @@ class AddItemFragment : Fragment() {
         }
     }
 
-    //Esta funcion se encargar de configurar la toolbar del fragment
-    private fun setupToolbar(){
+    private fun setupToolbar() {
         binding.toolbarAdd.toolbar.apply {
             setNavigationIcon(R.drawable.arrow_letf)
             setNavigationOnClickListener {
@@ -57,7 +55,6 @@ class AddItemFragment : Fragment() {
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
                     R.id.action_logout -> {
-                        // Lógica de logout
                         Toast.makeText(requireContext(), "Logout", Toast.LENGTH_SHORT).show()
                         true
                     }
@@ -68,26 +65,20 @@ class AddItemFragment : Fragment() {
         }
     }
 
-
-    //Esta funcion se encarga de activar el boton, solo si todos los campos estan diligenciados
-    private fun watchInputs (){
-            val textWatcher = object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
+    private fun watchInputs() {
+        val textWatcher = object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(p0: Editable?) {
                 val productCode = binding.etProductCode.text.toString().trim()
                 val productName = binding.etProductName.text.toString().trim()
                 val price = binding.etPrice.text.toString().trim()
                 val quantity = binding.etQuantity.text.toString().trim()
 
-                val allInputsFilled = productCode.isNotEmpty() &&
+                binding.btnSave.isEnabled = productCode.isNotEmpty() &&
                         productName.isNotEmpty() &&
                         price.isNotEmpty() &&
                         quantity.isNotEmpty()
-
-                binding.btnSave.isEnabled = allInputsFilled
             }
         }
 
@@ -99,30 +90,22 @@ class AddItemFragment : Fragment() {
         binding.btnSave.isEnabled = false
     }
 
-
-    //Esta funcion seta el sumit del boton y hara que la informacion de los campos se suba a la base de datos
     private fun sumitClick() {
-
-        val id = binding.etProductCode.text.toString()
+        val productCode = binding.etProductCode.text.toString()
         val name = binding.etProductName.text.toString()
         val price = binding.etPrice.text.toString()
         val quantity = binding.etQuantity.text.toString()
 
         val inventory = Inventory(
-            id = id.toInt(),
+            productCode = productCode,
             name = name,
             price = price.toInt(),
             quantity = quantity.toInt()
         )
 
         inventoryViewModel.saveInventory(inventory)
-        Log.d("test",inventory.toString())
-        Toast.makeText(context,"Artículo guardado !!", Toast.LENGTH_SHORT).show()
+        Log.d("test", inventory.toString())
+        Toast.makeText(context, "Artículo guardado en Firestore!!", Toast.LENGTH_SHORT).show()
         findNavController().popBackStack()
     }
-
-
-
-
-
 }

@@ -1,44 +1,32 @@
 package com.example.equipotres.repository
-import android.content.Context
-import com.example.equipotres.data.InventoryDB
-import com.example.equipotres.data.InventoryDao
+
 import com.example.equipotres.model.Inventory
-import com.example.equipotres.model.Product
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 
+class InventoryRepository @Inject constructor(
+    private val firestore: FirebaseFirestore
+) {
 
-class InventoryRepository @Inject constructor (
-    private var inventoryDao: InventoryDao
-){
-
-    //Inserta un nuevo registro en la base de datos local.
-    suspend fun saveInventory(inventory: Inventory){
-        withContext(Dispatchers.IO){
-            inventoryDao.saveInventory(inventory)
-        }
+    // Guarda un nuevo producto en la colección "inventory" de Firestore.
+    suspend fun saveInventory(inventory: Inventory) {
+        firestore.collection("inventory").add(inventory).await()
     }
 
-    //Metodo central que interactúa directamente con la muestra de ítems en el RecyclerView.
-    suspend fun getListInventory():MutableList<Inventory>{
-        return withContext(Dispatchers.IO){
-            inventoryDao.getListInventory()
-        }
+    // Obtiene la lista de productos desde Firestore.
+    suspend fun getListInventory(): MutableList<Inventory> {
+        val result = firestore.collection("inventory").get().await()
+        return result.toObjects(Inventory::class.java)
     }
 
-    //Elimina un registro específico de la base de datos.
-    suspend fun deleteInventory(inventory: Inventory){
-        withContext(Dispatchers.IO){
-            inventoryDao.deleteInventory(inventory)
-        }
+    // Elimina un producto de Firestore (requiere el ID del documento).
+    suspend fun deleteInventory(documentId: String) {
+        firestore.collection("inventory").document(documentId).delete().await()
     }
 
-    //Actualiza los datos de un registro existente en la base de datos.
-    suspend fun updateRepositoy(inventory: Inventory){
-        withContext(Dispatchers.IO){
-            inventoryDao.updateInventory(inventory)
-        }
+    // Actualiza un producto en Firestore (requiere el ID del documento).
+    suspend fun updateInventory(documentId: String, inventory: Inventory) {
+        firestore.collection("inventory").document(documentId).set(inventory).await()
     }
-
 }

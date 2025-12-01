@@ -1,13 +1,12 @@
 package com.example.equipotres.model
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
 import java.io.Serializable
 
-@Entity
+// 1. Remove Room annotations (@Entity, @PrimaryKey)
+// 2. Add default values for all properties for Firestore deserialization
 data class Inventory(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int = 0,
-    val name: String,
-    val price: Int,
-    val quantity: Int): Serializable;
+    val productCode: String = "",
+    val name: String = "",
+    val price: Int = 0,
+    val quantity: Int = 0
+) : Serializable
