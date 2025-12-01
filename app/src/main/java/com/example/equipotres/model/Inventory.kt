@@ -1,10 +1,11 @@
 package com.example.equipotres.model
 
+import com.google.firebase.firestore.DocumentId
 import java.io.Serializable
 
-// 1. Remove Room annotations (@Entity, @PrimaryKey)
-// 2. Add default values for all properties for Firestore deserialization
 data class Inventory(
+    @DocumentId
+    val id: String = "",
     val productCode: String = "",
     val name: String = "",
     val price: Int = 0,
