@@ -1,16 +1,10 @@
 package com.example.equipotres.repository
-import android.content.Context
-import com.example.equipotres.data.InventoryDB
-import com.example.equipotres.data.InventoryDao
-import com.example.equipotres.model.Inventory
-import com.example.equipotres.model.Product
 import com.example.equipotres.model.UserRequest
 import com.example.equipotres.model.UserResponse
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import javax.inject.Inject
 
 
 class LoginRepository  {

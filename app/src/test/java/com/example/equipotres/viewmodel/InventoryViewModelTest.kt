@@ -49,7 +49,7 @@ class InventoryViewModelTest {
     fun testSaveInventory_success() = runBlocking {
         // GIVEN → Dispatcher y objeto a guardar
         Dispatchers.setMain(UnconfinedTestDispatcher())
-        val inventory = Inventory(id = 1, name = "Item1", price = 10, quantity = 5)
+        val inventory = Inventory(id = "1", name = "Item1", price = 10, quantity = 5)
 
         // WHEN → Se llama el metodo del ViewModel
         inventoryViewModel.saveInventory(inventory)
@@ -62,8 +62,8 @@ class InventoryViewModelTest {
     fun `test método getListInventory`() = runBlocking {
         // GIVEN → Datos que queremos que devuelva el mock
         val mockListInventory = mutableListOf(
-            Inventory(id = 1, name = "Zapatos", price = 20, quantity = 3),
-            Inventory(id = 2, name = "Camisa", price = 15, quantity = 2)
+            Inventory(id = "1", name = "Zapatos", price = 20, quantity = 3),
+            Inventory(id = "2", name = "Camisa", price = 15, quantity = 2)
         )
 
         // WHEN → Mockeamos la respuesta del repositorio

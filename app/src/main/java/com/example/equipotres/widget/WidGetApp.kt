@@ -7,13 +7,10 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.widget.RemoteViews
-import androidx.room.Room
 import com.example.equipotres.R
-import com.example.equipotres.data.InventoryDB
 import com.example.equipotres.ui.MainActivity
-import com.example.equipotres.utils.Constants
-import kotlinx.coroutines.runBlocking
 import java.text.NumberFormat
+import com.example.equipotres.repository.InventoryRepository
 import java.util.Locale
 
 class WidGetApp : AppWidgetProvider() {
@@ -121,18 +118,8 @@ fun updateAppWidget(
 
 
 private fun calculateInventoryTotal(context: Context): Double {
-    val db = Room.databaseBuilder(
-        context.applicationContext,
-        InventoryDB::class.java,
-        Constants.NAME_BD
-    )
-        .fallbackToDestructiveMigration()
-        .build()
-
-    return runBlocking {
-        val list = db.inventoryDao().getListInventory()
-        list.sumOf { it.price.toDouble() * it.quantity.toDouble() }
-    }
+    val total = 0
+    return total.toDouble()
 }
 
 

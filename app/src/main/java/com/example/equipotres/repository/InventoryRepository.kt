@@ -16,27 +16,50 @@ class InventoryRepository @Inject constructor(
     }
 
     suspend fun getListInventory(): MutableList<Inventory> {
-        val result = firestore.collection("inventory").get().await()
-        return result.toObjects(Inventory::class.java)
+        val snapshot = firestore.collection("inventory").get().await()
+        val inventoryList = mutableListOf<Inventory>()
+        // Firestore's toObjects function doesn't populate the document ID.
+        // We need to iterate and set it manually.
+        for (document in snapshot.documents) {
+            val inventory = document.toObject(Inventory::class.java)
+            if (inventory != null) {
+                inventory.id = document.id
+                inventoryList.add(inventory)
+            }
+        }
+        return inventoryList
     }
 
     fun getProductByCode(productCode: String): LiveData<Inventory> {
-        val result = MutableLiveData<Inventory>()
+        val result = MutableLiveData<Inventory?>()
         firestore.collection("inventory")
             .whereEqualTo("productCode", productCode)
-            .addSnapshotListener { snapshot, _ ->
+            .addSnapshotListener { snapshot, error ->
+                if (error != null) {
+                    // Handle the error, maybe log it or post a specific state
+                    result.value = null
+                    return@addSnapshotListener
+                }
                 if (snapshot != null && !snapshot.isEmpty) {
-                    result.value = snapshot.documents[0].toObject(Inventory::class.java)
+                    val document = snapshot.documents[0]
+                    val inventory = document.toObject(Inventory::class.java)
+                    // Manually set the document ID on the object
+                    inventory?.id = document.id
+                    result.value = inventory
+                } else {
+                    result.value = null
                 }
             }
-        return result
+        return result as LiveData<Inventory>
     }
 
     suspend fun deleteInventory(inventory: Inventory) {
+        // This requires inventory.id to be correctly set.
         firestore.collection("inventory").document(inventory.id).delete().await()
     }
 
     suspend fun updateInventory(inventory: Inventory) {
+        // This requires inventory.id to be correctly set.
         firestore.collection("inventory").document(inventory.id).set(inventory).await()
     }
 }

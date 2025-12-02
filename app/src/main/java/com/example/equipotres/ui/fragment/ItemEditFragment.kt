@@ -93,7 +93,13 @@ class ItemEditFragment : Fragment() {
         try {
             val price = priceStr.toInt()
             val quantity = quantityStr.toInt()
-            val inventory = Inventory(receivedInventory.id, name, price, quantity)
+            val inventory = Inventory(
+                id = receivedInventory.id,
+                productCode = receivedInventory.productCode,
+                name = name,
+                price = price,
+                quantity = quantity
+            )
             inventoryViewModel.updateInventory(inventory)
             Toast.makeText(context,"Artículo actualizado !!", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_itemEditFragment_to_home22)
