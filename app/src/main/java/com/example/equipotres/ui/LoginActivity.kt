@@ -18,11 +18,14 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModels()
     private lateinit var sessionManager: SessionManager
+    private var launchedFromWidget = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         sessionManager = SessionManager(this)
+
+        launchedFromWidget = intent.getBooleanExtra("LAUNCHED_FROM_WIDGET", false)
 
         setup()
         sesionSave()
@@ -40,7 +43,7 @@ class LoginActivity : AppCompatActivity() {
                 val email = binding.etEmail.text.toString()
                 sessionManager.saveUserEmail(email)
                 notifyWidgetOfLogin()
-                goToHome()
+                navigateToNextScreen()
             } else {
                 Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
             }
@@ -69,16 +72,20 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun goToHome() {
-        val intent = Intent(this, MainActivity::class.java)
-        startActivity(intent)
-        finish()
+    private fun navigateToNextScreen() {
+        if (launchedFromWidget) {
+            finish()
+        } else {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun sesionSave() {
         if (sessionManager.isLoggedIn()) {
             binding.main.visibility = View.INVISIBLE
-            goToHome()
+            navigateToNextScreen()
         }
     }
 
@@ -89,7 +96,7 @@ class LoginActivity : AppCompatActivity() {
             if (isLogin) {
                 sessionManager.saveUserEmail(email)
                 notifyWidgetOfLogin()
-                goToHome()
+                navigateToNextScreen()
             } else {
                 Toast.makeText(this, "No se pudo iniciar sesion!", Toast.LENGTH_SHORT).show()
             }

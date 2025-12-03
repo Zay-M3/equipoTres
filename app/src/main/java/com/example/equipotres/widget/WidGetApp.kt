@@ -85,6 +85,7 @@ class WidGetApp : AppWidgetProvider() {
     private fun launchLogin(context: Context) {
         val loginIntent = Intent(context, LoginActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            putExtra("LAUNCHED_FROM_WIDGET", true)
         }
         context.startActivity(loginIntent)
     }
