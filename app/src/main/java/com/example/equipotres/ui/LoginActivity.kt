@@ -12,6 +12,7 @@ import com.example.equipotres.model.UserRequest
 import com.example.equipotres.utils.SessionManager
 import com.example.equipotres.viewmodel.LoginViewModel
 import android.view.View
+import com.example.equipotres.widget.WidGetApp
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -38,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
                 val email = binding.etEmail.text.toString()
                 sessionManager.saveUserEmail(email)
+                notifyWidgetOfLogin()
                 goToHome()
             } else {
                 Toast.makeText(this, userResponse.message, Toast.LENGTH_SHORT).show()
@@ -86,10 +88,18 @@ class LoginActivity : AppCompatActivity() {
         viewModel.loginUser(email, pass) { isLogin ->
             if (isLogin) {
                 sessionManager.saveUserEmail(email)
+                notifyWidgetOfLogin()
                 goToHome()
             } else {
                 Toast.makeText(this, "No se pudo iniciar sesion!", Toast.LENGTH_SHORT).show()
             }
         }
+    }
+
+    private fun notifyWidgetOfLogin() {
+        val intent = Intent(this, WidGetApp::class.java).apply {
+            action = WidGetApp.ACTION_LOGIN_SUCCESS
+        }
+        sendBroadcast(intent)
     }
 }

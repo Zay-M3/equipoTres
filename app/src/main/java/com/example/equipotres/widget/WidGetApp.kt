@@ -10,7 +10,9 @@ import android.content.Intent
 import android.widget.RemoteViews
 import com.example.equipotres.R
 import com.example.equipotres.repository.InventoryRepository
+import com.example.equipotres.ui.LoginActivity
 import com.example.equipotres.ui.MainActivity
+import com.example.equipotres.utils.SessionManager
 import dagger.hilt.EntryPoint
 import dagger.hilt.InstallIn
 import dagger.hilt.android.EntryPointAccessors
@@ -32,6 +34,7 @@ class WidGetApp : AppWidgetProvider() {
 
     companion object {
         const val ACTION_TOGGLE_BALANCE = "com.example.equipotres.widget.TOGGLE_BALANCE"
+        const val ACTION_LOGIN_SUCCESS = "com.example.equipotres.widget.LOGIN_SUCCESS"
         private const val PREFS_NAME = "inventory_widget_prefs"
         private const val KEY_IS_BALANCE_VISIBLE = "is_balance_visible"
 
@@ -47,17 +50,45 @@ class WidGetApp : AppWidgetProvider() {
     }
 
     override fun onReceive(context: Context, intent: Intent) {
-        if (intent.action == ACTION_TOGGLE_BALANCE || intent.action == AppWidgetManager.ACTION_APPWIDGET_UPDATE) {
-            if (intent.action == ACTION_TOGGLE_BALANCE) {
-                val newVisible = !isBalanceVisible(context)
-                setBalanceVisible(context, newVisible)
+        when (intent.action) {
+            ACTION_TOGGLE_BALANCE -> {
+                val sessionManager = SessionManager(context.applicationContext)
+                if (sessionManager.isLoggedIn()) {
+                    val newVisible = !isBalanceVisible(context)
+                    setBalanceVisible(context, newVisible)
+                    triggerUpdate(context) // Update UI
+                } else {
+                    launchLogin(context) // Not logged in
+                }
             }
-            val pendingResult = goAsync()
-            updateWidgets(context, AppWidgetManager.getInstance(context), pendingResult)
-        } else {
-            super.onReceive(context, intent)
+            ACTION_LOGIN_SUCCESS -> {
+                setBalanceVisible(context, true)
+                triggerUpdate(context) // Update UI
+            }
+            AppWidgetManager.ACTION_APPWIDGET_UPDATE -> {
+                val pendingResult = goAsync()
+                updateWidgets(context, AppWidgetManager.getInstance(context), pendingResult)
+            }
+            else -> super.onReceive(context, intent)
         }
     }
+
+    private fun triggerUpdate(context: Context) {
+        val intent = Intent(context, WidGetApp::class.java).apply {
+            action = AppWidgetManager.ACTION_APPWIDGET_UPDATE
+            val ids = AppWidgetManager.getInstance(context).getAppWidgetIds(ComponentName(context, WidGetApp::class.java))
+            putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids)
+        }
+        context.sendBroadcast(intent)
+    }
+
+    private fun launchLogin(context: Context) {
+        val loginIntent = Intent(context, LoginActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+        }
+        context.startActivity(loginIntent)
+    }
+
 
     private fun updateWidgets(
         context: Context,
