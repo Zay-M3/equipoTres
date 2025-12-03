@@ -16,20 +16,15 @@
         android:background="@color/black_translucent"
         tools:context=".ui.fragment.ItemDetailsFragment">
 
-        <!-- Toolbar -->
-        <androidx.appcompat.widget.Toolbar
+        <include
             android:id="@+id/toolbarDetail"
+            layout="@layout/toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:background="@color/toolbarBackground"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:title="Detalle del producto"
-            app:titleTextColor="@android:color/white"
-            app:navigationIcon="@drawable/arrow_letf"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardDetail"

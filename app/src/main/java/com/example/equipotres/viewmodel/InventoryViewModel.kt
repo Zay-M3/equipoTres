@@ -1,19 +1,19 @@
 package com.example.equipotres.viewmodel
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.example.equipotres.model.Inventory
 import com.example.equipotres.model.Product
 import androidx.lifecycle.viewModelScope
 import com.example.equipotres.repository.InventoryRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class InventoryViewModel (application : Application) : AndroidViewModel(application){
-    val context = getApplication<Application>()
-
-    //Instancia del Repository
-    private val inventoryRepository = InventoryRepository(context)
+@HiltViewModel
+class InventoryViewModel @Inject constructor (
+    private val inventoryRepository: InventoryRepository
+): ViewModel() {
 
     ////Actualizacion de RecyclerView
     private val _listInventory = MutableLiveData<MutableList<Inventory>>()
@@ -74,13 +74,19 @@ class InventoryViewModel (application : Application) : AndroidViewModel(applicat
         viewModelScope.launch {
             _progreesState.value = true
             try {
-                inventoryRepository.updateRepositoy(inventory)
+                inventoryRepository.updateInventory(inventory)
                 _progreesState.value = false
             } catch (e: Exception) {
                 _progreesState.value = false
             }
-        }   
+        }
     }
+
+    // Obtiene un producto específico por su código.
+    fun getProductByCode(productCode: String): LiveData<Inventory> {
+        return inventoryRepository.getProductByCode(productCode)
+    }
+
 
     //Calcula el total
     fun totalProducto(price: Int, quantity: Int): Double {

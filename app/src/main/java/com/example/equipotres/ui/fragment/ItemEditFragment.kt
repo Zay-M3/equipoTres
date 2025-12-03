@@ -12,8 +12,10 @@ import com.example.equipotres.viewmodel.InventoryViewModel
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.equipotres.model.Inventory
+import dagger.hilt.android.AndroidEntryPoint
+import java.lang.NumberFormatException
 
-
+@AndroidEntryPoint
 class ItemEditFragment : Fragment() {
 
     private lateinit var _binding : FragmentItemEditBinding
@@ -46,7 +48,7 @@ class ItemEditFragment : Fragment() {
             setNavigationOnClickListener {
                 activity?.onBackPressedDispatcher?.onBackPressed()
             }
-            title = "Detalle del producto"
+            title = "Editar producto"
             inflateMenu(R.menu.custom_menu)
             setOnMenuItemClickListener { menuItem ->
                 when (menuItem.itemId) {
@@ -80,12 +82,30 @@ class ItemEditFragment : Fragment() {
 
     private fun updateInventory(){
         val name = binding.etProductName.text.toString()
-        val price = binding.etProductPrice.text.toString().toInt()
-        val quantity = binding.etProductCant.text.toString().toInt()
-        val inventory = Inventory(receivedInventory.id, name,price, quantity)
-        inventoryViewModel.updateInventory(inventory)
-        Toast.makeText(context,"Artículo actualizado !!", Toast.LENGTH_SHORT).show()
-        findNavController().navigate(R.id.action_itemEditFragment_to_home22)
+        val priceStr = binding.etProductPrice.text.toString()
+        val quantityStr = binding.etProductCant.text.toString()
+
+        if (name.isEmpty() || priceStr.isEmpty() || quantityStr.isEmpty()) {
+            Toast.makeText(context, "Por favor, completa todos los campos", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        try {
+            val price = priceStr.toInt()
+            val quantity = quantityStr.toInt()
+            val inventory = Inventory(
+                id = receivedInventory.id,
+                productCode = receivedInventory.productCode,
+                name = name,
+                price = price,
+                quantity = quantity
+            )
+            inventoryViewModel.updateInventory(inventory)
+            Toast.makeText(context,"Artículo actualizado !!", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(R.id.action_itemEditFragment_to_home22)
+        } catch (e: NumberFormatException) {
+            Toast.makeText(context, "El precio y la cantidad deben ser números válidos", Toast.LENGTH_SHORT).show()
+        }
     }
 
 }

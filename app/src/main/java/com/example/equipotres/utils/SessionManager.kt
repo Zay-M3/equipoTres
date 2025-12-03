@@ -1,4 +1,3 @@
-// En C:/.../equipoTres/app/src/main/java/com/example/equipotres/utils/SessionManager.kt
 package com.example.equipotres.utils
 
 import android.content.Context
@@ -9,20 +8,24 @@ class SessionManager(context: Context) {
     private val editor = prefs.edit()
 
     companion object {
-        const val IS_LOGGED_IN = "isLoggedIn"
+        const val USER_EMAIL = "user_email"
     }
 
-    fun login() {
-        editor.putBoolean(IS_LOGGED_IN, true)
+    fun saveUserEmail(email: String) {
+        editor.putString(USER_EMAIL, email)
         editor.apply()
     }
 
+    fun getUserEmail(): String? {
+        return prefs.getString(USER_EMAIL, null)
+    }
+
     fun logout() {
-        editor.putBoolean(IS_LOGGED_IN, false)
+        editor.remove(USER_EMAIL)
         editor.apply()
     }
 
     fun isLoggedIn(): Boolean {
-        return prefs.getBoolean(IS_LOGGED_IN, false)
+        return getUserEmail() != null
     }
 }
